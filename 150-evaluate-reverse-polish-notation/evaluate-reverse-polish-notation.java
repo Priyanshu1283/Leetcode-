@@ -1,11 +1,11 @@
 class Solution {
     public int evalRPN(String[] tokens) {
-        Stack<String> st = new Stack<>();
+        Stack<Integer> st = new Stack<>();
         
         for(int i =0; i<tokens.length; i++){
             if(tokens[i].equals("+") || tokens[i].equals("-") ||tokens[i].equals("*") || tokens[i].equals("/")){
-                int a = Integer.parseInt(st.pop());
-                int b = Integer.parseInt(st.pop());
+                int a = st.pop();
+                int b = st.pop();
                 int ans = 0;
                 if(tokens[i].equals("+")){
                     ans = b + a;
@@ -16,11 +16,11 @@ class Solution {
                 }else{
                     ans = b / a;
                 }
-                st.push(String.valueOf(ans));
+                st.push(ans);
             }else{
-                st.push(tokens[i]);
+                st.push(Integer.parseInt(tokens[i]));
             }
         }
-        return Integer.parseInt(st.pop());
+        return st.pop();
     }
 }
