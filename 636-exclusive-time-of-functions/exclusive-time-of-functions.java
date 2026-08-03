@@ -1,0 +1,34 @@
+class Solution {
+    public int[] exclusiveTime(int n, List<String> logs) {
+        int[] ans = new int[n];
+        Stack<Integer> st = new Stack<>();
+
+        int prevTime = 0;
+
+        for (String log : logs) {
+            String[] parts = log.split(":");
+
+            int id = Integer.parseInt(parts[0]);
+            String type = parts[1];
+            int time = Integer.parseInt(parts[2]);
+
+            if (type.equals("start")) {
+                // Current function gets time until the new function starts
+                if (!st.isEmpty()) {
+                    ans[st.peek()] += time - prevTime;
+                }
+
+                st.push(id);
+                prevTime = time;
+            } else {
+                // Current function finishes (end timestamp is inclusive)
+                ans[st.pop()] += time - prevTime + 1;
+
+                // Next function resumes from the next timestamp
+                prevTime = time + 1;
+            }
+        }
+
+        return ans;
+    }
+}
