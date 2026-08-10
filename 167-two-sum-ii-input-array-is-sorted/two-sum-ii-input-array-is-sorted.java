@@ -1,14 +1,30 @@
 class Solution {
-    public int[] twoSum(int[] nums, int target) {
-        for (int i = 0; i < nums.length; i++) {
-            for (int j = i + 1; j < nums.length; j++) {
-                if (nums[i] + nums[j] == target) {
-                    int naya[]={i+1,j+1};
-                    int a = nums[0];
-                    return naya;
+
+    public int[] twoSum(int[] numbers, int target) {
+
+        for (int i = 0; i < numbers.length; i++) {
+
+            int required = target - numbers[i];
+
+            int left = i + 1;
+            int right = numbers.length - 1;
+
+            while (left <= right) {
+
+                int mid = left + (right - left) / 2;
+
+                if (numbers[mid] == required) {
+                    return new int[]{i + 1, mid + 1};
+                }
+                else if (numbers[mid] < required) {
+                    left = mid + 1;
+                }
+                else {
+                    right = mid - 1;
                 }
             }
         }
-        return null;
+
+        return new int[]{-1, -1};
     }
 }
